@@ -1,0 +1,26 @@
+﻿<h3>Kategorie</h3>
+
+<table class="col-8 mx-auto table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Dostępność</th>
+        </tr>
+    </thead>
+    @{
+        int counter = 1;
+    }
+    <tbody>
+        @foreach (var item in CategoryList)
+        {
+            <tr>
+                <th scope="row">@counter</th>
+                <td>@item.CategoryName</td>
+                <td>@(item.IsActive == true ? "Dostępna" : "Niedostępna")</td>
+            </tr>
+            counter++;
+        }
+    </tbody>
+</table>
+
