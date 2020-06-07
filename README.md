@@ -1,2 +1,2 @@
 # ServerAppProgramming
-App prepared as a project for my university
+App prepared as a project for my universitya
