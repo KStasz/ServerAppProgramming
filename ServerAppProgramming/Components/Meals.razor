@@ -1,0 +1,47 @@
+﻿<h3>Dostępne dania z kategorii: @category.CategoryName</h3>
+
+<div class="row col-12 mx-auto my-2">
+    <button type="button" class="btn btn-light border" @onclick="OnClickBack">Powrót</button>
+</div>
+
+@if (mealsList.Count != 0 && mealsList != null)
+{
+    <table class="col-12 mx-auto table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Cena</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        @{
+            int counter = 1;
+        }
+        <tbody>
+            @foreach (var item in mealsList)
+            {
+                <tr style="background-color:@(item.IsActive == false ? "gray;" : "none;")">
+                    <th scope="row">@counter</th>
+                    <td>@item.MealName</td>
+                    <td>@item.Price</td>
+                    <td>
+                        @if (item.IsActive == true)
+                        {
+                            <button type="button" class="btn btn-light border">Wybierz</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-light border" disabled>Wybierz</button>
+                        }
+                    </td>
+                </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Strona chwilowo niedostępna, przepraszamy:(</p>
+}

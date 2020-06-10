@@ -1,26 +1,51 @@
-﻿<h3>Kategorie</h3>
-
-<table class="col-8 mx-auto table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nazwa</th>
-            <th scope="col">Dostępność</th>
-        </tr>
-    </thead>
-    @{
-        int counter = 1;
-    }
-    <tbody>
-        @foreach (var item in CategoryList)
-        {
-            <tr>
-                <th scope="row">@counter</th>
-                <td>@item.CategoryName</td>
-                <td>@(item.IsActive == true ? "Dostępna" : "Niedostępna")</td>
-            </tr>
-            counter++;
-        }
-    </tbody>
-</table>
-
+﻿@switch (actualState)
+{
+    case ComponentsState.SelectMeal:
+        <ServerAppProgramming.Components.Meals category="selectedCategory"
+                                               restaurant="restaurant"
+                                               OnClickBack="OnBack">
+        </ServerAppProgramming.Components.Meals>
+        break;
+    default:
+        <Animate Animation="Animations.FadeLeft" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(1)">
+            <h3>Dostępne kategorie restauracji: @restaurant.RestaurantName</h3>
+            <div class="row col-12 mx-auto my-2">
+                <button class="btn btn-light border col-4" @onclick="OnClickBack">Powrót</button>
+            </div>
+            <table class="col-12 mx-auto table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:10%;" scope="col">#</th>
+                        <th style="width:60%;" class="text-center" scope="col">Nazwa</th>
+                        <th style="width:10%;" scope="col"></th>
+                        <th style="width:20%;" scope="col"></th>
+                    </tr>
+                </thead>
+                @{
+                    int counter = 1;
+                }
+                <tbody>
+                    @foreach (var item in CategoryList)
+                    {
+                        <tr style="background-color:@(item.IsActive == false ? "gray;" : "none;")">
+                            <th scope="row">@counter</th>
+                            <td class="text-center">@item.CategoryName</td>
+                            <td>@(item.IsActive == true ? "Dostępna" : "Niedostępna")</td>
+                            <td>
+                                @if (item.IsActive == true)
+                                {
+                                    <button type="button" class="btn btn-light border" @onclick="@(() => OnSelectedCategory(item))">Wyświetl menu</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-light border" @onclick="@(() => OnSelectedCategory(item))" disabled>Wyświetl menu</button>
+                                }
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                </tbody>
+            </table>
+        </Animate>
+        break;
+}

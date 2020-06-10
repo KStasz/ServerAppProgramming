@@ -10,6 +10,7 @@ namespace ServerAppProgramming.Models
         public string MealName { get; set; }
         public int CategoryId { get; set; }
         public int RestaurantId { get; set; }
+        public double Price { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreationDate { get; set; }
     }
