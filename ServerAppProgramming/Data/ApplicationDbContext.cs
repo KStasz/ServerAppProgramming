@@ -19,6 +19,5 @@ namespace ServerAppProgramming.Data
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Restaurants> Restaurants { get; set; }
-        public virtual DbSet<UserModel> UserModel { get; set; }
     }
 }

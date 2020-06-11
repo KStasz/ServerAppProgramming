@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServerAppProgramming.Areas.Identity;
 using ServerAppProgramming.Data;
+using ServerAppProgramming.Models;
 
 namespace ServerAppProgramming
 {
@@ -40,7 +41,6 @@ namespace ServerAppProgramming
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
