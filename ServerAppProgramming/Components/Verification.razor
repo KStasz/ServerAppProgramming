@@ -1,0 +1,31 @@
+﻿@page "/verification"
+
+<h3>Zamówienia do zatwierdzenia: </h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Danie</th>
+            <th scope="col">Restauracja</th>
+            <th scope="col">data</th>
+            <th scope="col">Nazwa użytkownika</th>
+        </tr>
+    </thead>
+    @{
+        int counter = 1;
+    }
+    <tbody>
+        @foreach (var item in listOrder)
+        {
+        <tr>
+            <th scope="row">@counter</th>
+            <td>@item.meal.MealName</td>
+            <td>@item.restaurant.RestaurantName</td>
+            <td>@item.date</td>
+            <td>@item.Username</td>
+        </tr>
+            counter++;
+        }
+    </tbody>
+</table>
