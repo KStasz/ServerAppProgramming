@@ -1,0 +1,88 @@
+﻿@page "/order"
+
+@if (Error == true)
+{
+    <Animate Animation="Animations.FadeLeft" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(1)">
+        <div class="row col-6 mx-auto text-center mt-5">@ErrorMessage</div>
+        <div class="row col-6 mx-auto text-center">
+            <button type="button" @onclick="@(() => RemoveError())" class="btn btn-light border mx-auto">Powrót</button>
+        </div>
+    </Animate>
+
+}
+else
+{
+    <Animate Animation="Animations.ZoomIn" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(1)">
+        <h3>Podsumowanie zamówienia:</h3>
+        <div class="row mx-auto my-2">
+            <button type="button" class="ml-auto mr-2 btn btn-light border" @onclick="(() => SaveOrder())">Zapisz</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Restauracja</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Data dodania</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            @{
+                int counter = 1;
+            }
+            <tbody>
+                @foreach (var item in listOrder)
+                {
+                    <tr>
+                        <th scope="row" style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">@counter</th>
+                        <td style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">@item.meal.MealName</td>
+                        <td style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">@item.restaurant.RestaurantName</td>
+                        <td style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">
+                            @if (item.IsInEdit != true)
+                            {
+                                @item.Quantity
+                            }
+                            else
+                            {
+                                <input type="number" @bind-value="item.Quantity" placeholder="Ilość" class="form-control" id="inputZip">
+                            }
+                        </td>
+                        <td style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">
+                            @if (item.IsInEdit == true)
+                            {
+                                <button type="button" class="btn btn-success" @onclick="@(() => SaveQuantity(item))">Zapisz</button>
+                            }
+                            else
+                            {
+                                @if (item.IsInWeryfication == false)
+                                {
+                                    <button type="button" class="btn btn-warning" @onclick="@(() => UpdateQuantity(item))">Edytuj</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-warning" @onclick="@(() => UpdateQuantity(item))" disabled>Edytuj</button>
+                                }
+                            }
+                        </td>
+                        <td style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">
+                            @item.date
+                        </td>
+                        <td style="background-color:@(item.IsInWeryfication == true ? "gray" : "none")">
+                            @if (item.IsInWeryfication == false)
+                            {
+                                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteOrder(item))">Usuń</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteOrder(item))" disabled>Usuń</button>
+                            }
+                        </td>
+                    </tr>
+                    counter++;
+                }
+            </tbody>
+        </table>
+    </Animate>
+}
